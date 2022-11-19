@@ -61,10 +61,10 @@ Example of config
  ["WeatherandForecast_Current_Icon","lightbulb", "openhab", "icon"],
  ```
  
- WeatherandForecast_Current_Icon = Openhab item name
- lightbulb = icon name in lovelaceIcon.map
- openhab = type of config i.e is config for openhab item or normal label.
- switch = type of the control in lovelace UI. 
+1.  `WeatherandForecast_Current_Icon` = Openhab item name
+2.  `lightbulb` = icon name in lovelaceIcon.map
+3.  `openhab` = type of config i.e is config for openhab item or normal label.
+4.  `switch` = type of the control in lovelace UI. 
  
  
  Note: This is WIP and code fails in many cases. Not all error handling is present. 
