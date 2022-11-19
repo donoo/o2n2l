@@ -1,0 +1,2417 @@
+[
+    {
+        "id": "822fe57518d44a3a",
+        "type": "subflow",
+        "name": "DateTimeWeather",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "b0aec09231630dd7"
+                    },
+                    {
+                        "id": "fad8b0b6e8d22571"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 840,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "b0aec09231630dd7",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 840,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "fad8b0b6e8d22571",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "type": "env",
+                "value": "CurrentScreen"
+            },
+            {
+                "name": "Type",
+                "type": "str",
+                "value": "ScreenSaver"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "fad8b0b6e8d22571",
+        "type": "function",
+        "z": "822fe57518d44a3a",
+        "name": "Date ",
+        "func": "var day = new Date().toLocaleString(\"en-US\", { weekday: \"long\" });\n\nvar Year = new Date().getFullYear();\n\nvar month = new Date().toLocaleString(\"en-US\", { month: \"long\" });\n\nvar date = new Date().getDate();\n\nvar cmnd = 'date~' + day+\", \"+ date+\" \"+ month +\" \"+ Year;\n\n\nmsg.payload = cmnd;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0aec09231630dd7",
+        "type": "function",
+        "z": "822fe57518d44a3a",
+        "name": "Time",
+        "func": "\n     \n     // TIME COMMAND: time ~ xx:xx?AM/PM ~ \n     //(tTimeAdd - text below time)\n\n    var Hour = new Date().getHours();\n\n    var Minute = new Date().getMinutes();\n\n    var Second = new Date().getSeconds();\n\n  \n\n    var  cmnd_list = [\"time\"]\n\n    cmnd_list[1] = Hour + ':' + (Minute < 10 ? (\"0\" + Minute) : (Minute)) ;\n\n    cmnd_list[2] = \"\" // Additional text\n\n     var cmnd = cmnd_list.join(\"~\");\n\nmsg.payload = cmnd;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fd2292f88d998b09",
+        "type": "subflow",
+        "name": "ScreenSaver",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "74b28b07f42a5bc6"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 950,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "b5685866a65ba19e",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 960,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "b5685866a65ba19e",
+                        "port": 1
+                    }
+                ]
+            },
+            {
+                "x": 900,
+                "y": 280,
+                "wires": [
+                    {
+                        "id": "a5b6f9f4f230edb5",
+                        "port": 0
+                    },
+                    {
+                        "id": "a5b6f9f4f230edb5",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "NextScreen",
+                "type": "str",
+                "value": "gridpages"
+            },
+            {
+                "name": "ScreenSaver",
+                "type": "str",
+                "value": "ScreenSaver"
+            },
+            {
+                "name": "SwipeRight",
+                "type": "str",
+                "value": "SwipeRight"
+            },
+            {
+                "name": "SwipeLeft",
+                "type": "str",
+                "value": "SwipeLeft"
+            },
+            {
+                "name": "CurrentScreen",
+                "type": "str",
+                "value": "ScreenSaver"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99",
+        "outputLabels": [
+            "ScreenSaver",
+            "Date & Weather",
+            ""
+        ]
+    },
+    {
+        "id": "b5685866a65ba19e",
+        "type": "subflow:adee135b63693741",
+        "z": "fd2292f88d998b09",
+        "name": "New ScreenSaver",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "CurrentScreen",
+                "type": "env"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "CurrentPageName",
+                "type": "env"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "PreviousScreen",
+                "type": "env"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NextScreen",
+                "type": "env"
+            },
+            {
+                "name": "Type",
+                "value": "screensaver",
+                "type": "str"
+            }
+        ],
+        "x": 550,
+        "y": 40,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a5b6f9f4f230edb5",
+        "type": "subflow:822fe57518d44a3a",
+        "z": "fd2292f88d998b09",
+        "name": "",
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "83d4e191c690b9ab",
+        "type": "inject",
+        "z": "fd2292f88d998b09",
+        "name": "",
+        "props": [],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "a5b6f9f4f230edb5"
+            ]
+        ]
+    },
+    {
+        "id": "74b28b07f42a5bc6",
+        "type": "function",
+        "z": "fd2292f88d998b09",
+        "name": "Set Global Data",
+        "func": "global.set(\"SwipeLeft\", env.get(\"SwipeLeft\"));\nglobal.set(\"SwipeRight\", env.get(\"SwipeRight\"));\nglobal.set(\"ScreenSaver\", \"ScreenSaver\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 40,
+        "wires": [
+            [
+                "b5685866a65ba19e"
+            ]
+        ]
+    },
+    {
+        "id": "e6ada0ea31293a9f",
+        "type": "subflow",
+        "name": "ItemEventHandler",
+        "info": "",
+        "category": "",
+        "in": [],
+        "out": [
+            {
+                "x": 1000,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "56be22fe85f9b4dc",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "8a081e3f1dc8e481",
+        "type": "openhab2-events2",
+        "z": "e6ada0ea31293a9f",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "a16d0a22339c779b"
+            ]
+        ]
+    },
+    {
+        "id": "a16d0a22339c779b",
+        "type": "function",
+        "z": "e6ada0ea31293a9f",
+        "name": "EventToRoom",
+        "func": "\nvar topic  = msg.topic.split(\"/\")\nvar currentScreen = global.get(\"CurrentScreen\");\nvar pages = global.get(\"Pages\");\n\n\nvar event = topic[0]; //openhan   0\nvar items  = topic[1]; // items event Name 1 \nvar itemName  =topic[2] // item name  Name 2\nvar eventType = \"\"\nvar found =false;\n\n\nvar currentScreenItems = pages[currentScreen];\n\nif (currentScreenItems== null){\n   return;\n}\n\nfor (let index = 0; index < currentScreenItems.length; index++) {\n   const element = currentScreenItems[index][0];\n   if (element == itemName ){\n     found = true;\n      break;\n   }\n   \n}\n\n\nif (found ){\n    msg.payload = currentScreen;\n  \n    \n}else {\n  \n   return; \n}\n \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "f7dc0e2e057b1773"
+            ]
+        ]
+    },
+    {
+        "id": "f7dc0e2e057b1773",
+        "type": "delay",
+        "z": "e6ada0ea31293a9f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.3",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "56be22fe85f9b4dc"
+            ]
+        ]
+    },
+    {
+        "id": "56be22fe85f9b4dc",
+        "type": "function",
+        "z": "e6ada0ea31293a9f",
+        "name": "EventToRoomEvent",
+        "func": "\nmsg.itemUpdated = true;\n \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6fb0a0c25bb9a27",
+        "type": "subflow",
+        "name": "Popup",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "e8fe9cf50cfcef82"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1040,
+                "y": 360,
+                "wires": [
+                    {
+                        "id": "f501e45079f04fd0",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "f5c552da14ac8aa4",
+        "type": "openhab2-get2",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "topic": "",
+        "sendnull": false,
+        "x": 540,
+        "y": 520,
+        "wires": [
+            [
+                "f501e45079f04fd0"
+            ]
+        ]
+    },
+    {
+        "id": "e8fe9cf50cfcef82",
+        "type": "function",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "Select-options",
+        "func": "var data = msg.payload.split(\",\");\nvar event = data[0]\nvar eventName = data[1];\nvar eventType = data[2];\nvar itemName = data [3];\nvar state =\"\";\nif (data.length > 4){\n    state = data[4];\n}\n\n\n\nmsg.data = msg.payload\nmsg.payload = data;\nmsg.item = itemName\nmsg.state = state;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 360,
+        "wires": [
+            [
+                "1dd81e8964221f9d"
+            ]
+        ]
+    },
+    {
+        "id": "1dd81e8964221f9d",
+        "type": "switch",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "Screens",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "OnOff",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "mode-input_select",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 260,
+        "y": 560,
+        "wires": [
+            [
+                "2565c760e5de290d"
+            ],
+            [
+                "3c558599ce5fd90c"
+            ],
+            [
+                "f5c552da14ac8aa4"
+            ]
+        ]
+    },
+    {
+        "id": "2961b39b16e8868f",
+        "type": "debug",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "SubFlow Test",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b9019c529baa5da7",
+        "type": "openhab2-out2",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "topic": "ItemCommand",
+        "payload": "",
+        "onlywhenchanged": false,
+        "x": 740,
+        "y": 340,
+        "wires": [
+            [
+                "f501e45079f04fd0"
+            ]
+        ]
+    },
+    {
+        "id": "f501e45079f04fd0",
+        "type": "function",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "Select-options",
+        "func": "var data = msg.data.split(\",\");\nvar event = data[0]\nvar eventName = data[1];\nvar eventType = data[2];\nvar itemName = data [3];\nvar currentScreen = global.get(\"CurrentScreen\");\nvar page = global.get(\"Pages\")[currentScreen];\nvar options =[];\nvar currentValue = msg.payload;\n\n\n\n//entityUpdateDetail2~Sunny_Command~XXXL~2000~input_select~TOGGLE~AUTO?CLEAN?CHARGE?STOP?RESUME?TOGGLE\n\n//entityUpdateDetail~entityName~* ignored * ~* iconColor * ~* buttonState * ~* sliderBrightnessPos * ~* sliderColorTempPos * ~* colorMode * ~* color_translation * ~* color_temp_translation * ~* brightness_translation *\n\n  //  entityUpdateDetail~1~17299~1~100~78~enable\n\nvar cmnd_list = [\"entityUpdateDetail2\"]\n\n\nvar counter =1\nif (eventType ==\"popupInSel\"){\n \n\ncmnd_list[counter++] = itemName ;//\"Sunny_Command\"//msg.itemName;//msg.payload; //entity id\ncmnd_list[counter++] = \"XXXL\";\n  cmnd_list[counter++] = 17299;//icon color\ncmnd_list[counter++] = \"input_select\" ;// type\n  cmnd_list[counter++] = msg.payload;// current selected value\n\n  for (let index = 0; index < page.length; index++) {\n    const element = page[index];\n    \n    if (element[0] == itemName) {\n        options = element[4];\n    }\n  }\n\n  cmnd_list[counter++] = options.join(\"?\");//values\n  msg.payload = cmnd_list.join(\"~\");\n\n} else if (eventType == \"popupLight\"){\n  \n  var state = msg.payload ==\"ON\"?1:0\n\n  var color = msg.payload == \"ON\" ? 64811 : 17299; \n\n  //entityUpdateDetail~entityName~*ignored*~*iconColor*~*buttonState*~*sliderBrightnessPos*~*sliderColorTempPos*~*colorMode*~*color_translation*~*color_temp_translation*~*brightness_translation*\n\n  msg.payload = \"entityUpdateDetail~\" + itemName + \"~ignored~\" + color + \"~\" + state + \"~1~2~\" + msg.label+\"~Color~Color Temperature~Brightness\"\n\n  //msg.payload = \"entityUpdateDetail~\" + itemName + \"~1~1~\" + state+\"~1\"\n\n  //msg.payload = \"entityUpdateDetail2~\" + itemName +\"~17299~1~100~78~enable\"\n} else if (eventType == \"popupFan\"){\n  var state = msg.payload == \"ON\" ? 1 : 0\n\n  var color = msg.payload == \"ON\" ? 64811 : 17299; \n\n//entityUpdateDetail~{entity_id}~~{icon_color}~{switch_val}~{speed}~{speedMax}~{speed_translation}~{preset_mode}~{preset_modes}\n  msg.payload = \"entityUpdateDetail~\" + itemName + \"~1~\" + color + \"~\" + state + \"~\" + state + \"~4~\" + msg.label + \"~\" + state+\"~1?2?3\"\n}\n\n//global.set(\"PreviousScreen\",\"Robot-subpage\")\nmsg.test = currentValue;\n\n//msg.payload = cmnd_list.join(\"~\");\n//msg.payload = \"entityUpdateDetail~Sunny_Command~17299~1~100~78~enable\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 520,
+        "wires": [
+            [
+                "d47efc225b935929"
+            ]
+        ]
+    },
+    {
+        "id": "2565c760e5de290d",
+        "type": "change",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "item",
+                "pt": "msg",
+                "to": "payload[2]",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[4]= \"1\" ? \"ON\":\"OFF\"\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "b9019c529baa5da7"
+            ]
+        ]
+    },
+    {
+        "id": "d47efc225b935929",
+        "type": "debug",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "Popup",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "3c558599ce5fd90c",
+        "type": "function",
+        "z": "d6fb0a0c25bb9a27",
+        "name": "Select-options",
+        "func": "var data = msg.payload\nvar event = data[0]\nvar eventName = data[1];\nvar eventType = data[2];\nvar itemName = data [3];\nvar state = data [4];\nvar currentScreen = global.get(\"CurrentScreen\");\nvar page = global.get(\"Pages\")[ currentScreen];\nvar command = \"\";\n\nfor (let index = 0; index < page.length; index++) {\n    const element = page[index];\n\n    if (element[0] == eventType) {\n        command = element[4][state];\n    }\n}\nmsg.payload = command;\nmsg.item = eventType;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "b9019c529baa5da7"
+            ]
+        ]
+    },
+    {
+        "id": "5f528f74f282670a",
+        "type": "subflow",
+        "name": "Media",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 40,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "a208a74c5a2d70b7"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 940,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "9fe9f20507fc2930",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1080,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "10b48ada025b0e29",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "type": "str",
+                "value": "Media"
+            },
+            {
+                "name": "Navigation",
+                "type": "str",
+                "value": "1|1"
+            },
+            {
+                "name": "PreviousScreen",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "NextScreen",
+                "type": "str",
+                "value": ""
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "9fe9f20507fc2930",
+        "type": "function",
+        "z": "5f528f74f282670a",
+        "name": "pageType~cardMedia",
+        "func": "var cmnd_list = \"pageType~cardMedia\";   \n\nmsg.payload = cmnd_list;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a208a74c5a2d70b7",
+        "type": "function",
+        "z": "5f528f74f282670a",
+        "name": "Set Global Data",
+        "func": "var currentScreen = env.get(\"CurrentScreen\");\nvar previousScreen = env.get(\"PreviousScreen\");\nvar nextScreen = env.get(\"NextScreen\");\n\nglobal.set(\"CurrentScreen\", currentScreen);\nglobal.set(\"PreviousScreen\", previousScreen);\nglobal.set(\"NextScreen\", nextScreen);\nmsg.pageName = global.get(currentScreen);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 40,
+        "wires": [
+            [
+                "9fe9f20507fc2930",
+                "eaedc04d7d40d0de",
+                "06f69cdd30100568"
+            ]
+        ]
+    },
+    {
+        "id": "10b48ada025b0e29",
+        "type": "function",
+        "z": "5f528f74f282670a",
+        "name": "Media - Function",
+        "func": "//entityUpd~*heading*~*navigation*~*internalNameEntiy*~*icon*~*title*~*author*~*volume*~*playpauseicon*~currentSpeaker~speakerList-seperated-by-?~onoffbtn~tIconBtnEntityName\nvar data = msg.payload;\nvar cmnd_list = [\"entityUpd\"]\nvar counter = 1\ncmnd_list[counter++] = env.get(\"CurrentPageName\");\ncmnd_list[counter++] = env.get(\"Navigation\") ; // Navigation\n\n\n\n\nvar itemsNames = global.get(env.get(\"CurrentScreen\"));\nvar title=\"\";\nvar volume=0;\nvar power= \"OFF\"\nvar av= \"OFF\";\nvar avTitle =\"\"\n\nfor (let index = 0; index < itemsNames.length; index++) {\n    if (itemsNames[index][2] == \"Title\"){\n        title = data[itemsNames[index][0]]\n    }\n\n    if (itemsNames[index][2] == \"Volume\"){\n        volume = data[itemsNames[index][0]]\n    }\n\n    if (itemsNames[index][2] == \"Power\") {\n        power = data[itemsNames[index][0]]\n    }\n\n    if (itemsNames[index][2] == \"AVPower\") {\n        av = data[itemsNames[index][0]]\n    }\n\n    if (itemsNames[index][2] == \"AVTitle\") {\n        avTitle = data[itemsNames[index][0]];\n    }\n\n\n}\ncmnd_list[counter++] = power.item;//internalNameEntiy\ncmnd_list[counter++] = av.payload == \"ON\" ? global.get(\"icons\").get(\"music\") : global.get(\"icons\").get(\"music-off\");  // icon\ncmnd_list[counter++] = \"Title\";// avTitle.payload ==\"ON\" ? avTitle.payload :\"NA\" ;//title\ncmnd_list[counter++] = \"author\";//\ncmnd_list[counter++] = volume.payload; //volume\ncmnd_list[counter++] = power.payload == \"ON\" ? global.get(\"icons\").get(\"pause\") : global.get(\"icons\").get(\"play\") ;//playpauseicon\ncmnd_list[counter++] = av.payload == \"ON\" ?\"Pioneer\":\"TV\";//currentSpeaker\ncmnd_list[counter++] = \"TV?Pioneer\"; //speakerList-seperated-by-?\ncmnd_list[counter++] =  power.payload == \"ON\" ? 64811 : 17299;//onoffbtn\ncmnd_list[counter++] = av.item;//tIconBtnEntityName\n\n /*\nfor (let index = 0; index < itemsNames.length; index++) {\n   \n    \n    const element = data[itemsNames[index][0]];\n    cmnd_list[counter++] = \"on\"; //Type\n    cmnd_list[counter++] = element.item; //Item Name\n    cmnd_list[counter++] = global.get(\"icons\").get(itemsNames[index][1]); // Icon\n    cmnd_list[counter++] = element.payload == \"ON\" ? 64811 : 17299; //Color\n    cmnd_list[counter++] = element.label; // Display Test\n    cmnd_list[counter++] = 0; // Optional\n    \n\n    const element = data[itemsNames[index][0]];\n\n   \n   \n}*/\n\n\nmsg.payload = cmnd_list.join(\"~\");\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f137ac42aab6f39a",
+        "type": "function",
+        "z": "5f528f74f282670a",
+        "name": "Loop",
+        "func": "msg.item = msg.loop.value[0];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "eaedc04d7d40d0de",
+                "b5300b39c66c139b"
+            ]
+        ]
+    },
+    {
+        "id": "eaedc04d7d40d0de",
+        "type": "loop",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "kind": "enum",
+        "count": "",
+        "initial": "0",
+        "step": "1",
+        "condition": "",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "pageName",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-last",
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "ad23ee392c89073c"
+            ],
+            [
+                "f137ac42aab6f39a"
+            ]
+        ]
+    },
+    {
+        "id": "b5300b39c66c139b",
+        "type": "openhab2-get2",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "topic": "",
+        "sendnull": false,
+        "x": 540,
+        "y": 560,
+        "wires": [
+            [
+                "6ea71e9bbb7d9963"
+            ]
+        ]
+    },
+    {
+        "id": "8bcc7cfb1bac084a",
+        "type": "change",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "complete",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "b5300b39c66c139b"
+            ]
+        ]
+    },
+    {
+        "id": "6ea71e9bbb7d9963",
+        "type": "join",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "",
+        "propertyType": "full",
+        "key": "item",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 770,
+        "y": 460,
+        "wires": [
+            [
+                "10b48ada025b0e29",
+                "2e7dcc091ed97ba8"
+            ]
+        ]
+    },
+    {
+        "id": "576999c12bc86d01",
+        "type": "switch",
+        "z": "5f528f74f282670a",
+        "name": "Screens",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 140,
+        "wires": [
+            [
+                "eaedc04d7d40d0de"
+            ]
+        ]
+    },
+    {
+        "id": "06f69cdd30100568",
+        "type": "subflow:1142f1aa713db549",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "x": 520,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ad23ee392c89073c",
+        "type": "delay",
+        "z": "5f528f74f282670a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": ".20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 320,
+        "wires": [
+            [
+                "8bcc7cfb1bac084a"
+            ]
+        ]
+    },
+    {
+        "id": "2e7dcc091ed97ba8",
+        "type": "debug",
+        "z": "5f528f74f282670a",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1142f1aa713db549",
+        "type": "subflow",
+        "name": "Item Resolver",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 40,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "ba0c0dc84bca59d5"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "ba0c0dc84bca59d5",
+        "type": "function",
+        "z": "1142f1aa713db549",
+        "name": "Item Resolver",
+        "func": "    \n\nvar data = msg.CustomRecv ;\nvar itemName = data.split(\",\");\n\nif(itemName.lenght <5){\n    return;\n}\n\nmsg.payload = itemName[2];\n\nmsg.item = itemName[2];\nmsg.payload = \"TOGGLE\"\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 40,
+        "wires": [
+            [
+                "018e1c132ae0e2bd"
+            ]
+        ]
+    },
+    {
+        "id": "018e1c132ae0e2bd",
+        "type": "openhab2-out2",
+        "z": "1142f1aa713db549",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "topic": "ItemCommand",
+        "payload": "",
+        "onlywhenchanged": false,
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "52eded69a401591b"
+            ]
+        ]
+    },
+    {
+        "id": "52eded69a401591b",
+        "type": "function",
+        "z": "1142f1aa713db549",
+        "name": "ItemUpdated",
+        "func": "msg.payload=\"ItemUpdated\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "046068cf4ffa7be8",
+        "type": "openhab2-controller2",
+        "name": "Marigold",
+        "protocol": "http",
+        "host": "localhost",
+        "port": "8080",
+        "path": "",
+        "username": "",
+        "password": "",
+        "ohversion": "v3",
+        "token": ""
+    },
+    {
+        "id": "adee135b63693741",
+        "type": "subflow",
+        "name": "Pages",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 20,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "047437f9fe7a600d"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1060,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "7532f192595f75be",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1580,
+                "y": 480,
+                "wires": [
+                    {
+                        "id": "cf1c0aedcee6e772",
+                        "port": 0
+                    },
+                    {
+                        "id": "aa60598f10864eb0",
+                        "port": 0
+                    },
+                    {
+                        "id": "09021b95c5775768",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "type": "str",
+                "value": "Page"
+            },
+            {
+                "name": "CurrentPageName",
+                "type": "str",
+                "value": "Page Title"
+            },
+            {
+                "name": "Navigation",
+                "type": "str",
+                "value": "1|1"
+            },
+            {
+                "name": "PreviousScreen",
+                "type": "str",
+                "value": "NA"
+            },
+            {
+                "name": "NextScreen",
+                "type": "str",
+                "value": "NA"
+            },
+            {
+                "name": "Type",
+                "type": "str",
+                "value": "cardGrid"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "7532f192595f75be",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "Blank Grid Page",
+        "func": "var type = env.get(\"Type\");\n\nvar cmnd_list = \"pageType~\" +type+\"~~~\";   \n\nmsg.payload = cmnd_list;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a99b0efd97aab1e",
+        "type": "switch",
+        "z": "adee135b63693741",
+        "name": "Screens",
+        "property": "buttonEvent",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Button",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Button",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "a6f63a33e1c6ff80"
+            ],
+            [
+                "f5e92fd125629629"
+            ]
+        ]
+    },
+    {
+        "id": "a6f63a33e1c6ff80",
+        "type": "subflow:1142f1aa713db549",
+        "z": "adee135b63693741",
+        "name": "",
+        "x": 520,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "87d000d40b9efada",
+        "type": "loop",
+        "z": "adee135b63693741",
+        "name": "",
+        "kind": "enum",
+        "count": "",
+        "initial": "0",
+        "step": "1",
+        "condition": "",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "pageName",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-last",
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "ed8571b59fd1d09b"
+            ],
+            [
+                "1bfb4e5aada598cf"
+            ]
+        ]
+    },
+    {
+        "id": "1bfb4e5aada598cf",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "Loop",
+        "func": "msg.item = msg.loop.value[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 220,
+        "wires": [
+            [
+                "87d000d40b9efada",
+                "3b3eefedda263695"
+            ]
+        ]
+    },
+    {
+        "id": "874f39604c49ba2a",
+        "type": "join",
+        "z": "adee135b63693741",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "",
+        "propertyType": "full",
+        "key": "item",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 950,
+        "y": 480,
+        "wires": [
+            [
+                "a70d1679a2e76320"
+            ]
+        ]
+    },
+    {
+        "id": "c68b7eb00af74dbf",
+        "type": "openhab2-get2",
+        "z": "adee135b63693741",
+        "name": "",
+        "controller": "046068cf4ffa7be8",
+        "itemname": "",
+        "topic": "",
+        "sendnull": false,
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "874f39604c49ba2a"
+            ]
+        ]
+    },
+    {
+        "id": "cf1c0aedcee6e772",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "Page-Creator",
+        "func": "var data = msg.payload;\nvar currentScreen = env.get(\"CurrentScreen\");\nvar cmnd_list = [\"entityUpd\"]\nvar counter = 1\ncmnd_list[counter++] = env.get(\"CurrentPageName\");\n\nif (env.get(\"Navigation\") !=\"NA\")\n    cmnd_list[counter++] = env.get(\"Navigation\")       // Navigation\n\n//var itemsNames = global.get(global.get(\"CurrentPage\"));\n\nvar itemsNames = global.get(\"Pages\")[currentScreen];\n\n\nfor (let index = 0; index < itemsNames.length; index++) {\n    // @ts-ignore\n    const element = data[itemsNames[index][0]];\n    if (itemsNames[index][2] == \"openhab\"){  \n        cmnd_list[counter++] = itemsNames[index][3]; //Type\n        cmnd_list[counter++] = element.item; //Item Name\n        cmnd_list[counter++] = global.get(\"icons\").get(itemsNames[index][1]); // Icon\n        cmnd_list[counter++] = element.payload == \"ON\" ? 64811 : 17299; //Color\n        cmnd_list[counter++] = element.label; // Display Test\n\n        if (itemsNames[index][3] == \"text\"){\n            cmnd_list[counter++] = element.payload// Optional\n        } else if (itemsNames[index][3] == \"input_sel\"){\n            cmnd_list[counter++] = element.payload; // Optional\n        }else  {\n            cmnd_list[counter++] = element.payload == \"ON\" ? 1 : 0; // Optional\n        }\n\n        \n    }else{\n        cmnd_list[counter++] = itemsNames[index][3]; //Type\n        cmnd_list[counter++] = itemsNames[index][0]; //Item Name\n        cmnd_list[counter++] = global.get(\"icons\").get(itemsNames[index][1]); // Icon\n        cmnd_list[counter++] = itemsNames[index][0] == \"ON\" ? 64811 : 17299; //Color\n        cmnd_list[counter++] = itemsNames[index][0].split(\".\")[0]; // Display Test\n        cmnd_list[counter++] = \"Counter:\" + index; // Optional\n    }\n\n}\n\n\nmsg.payload = cmnd_list.join(\"~\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "047437f9fe7a600d",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "Set Global Data",
+        "func": "var currentScreen = env.get(\"CurrentScreen\");\nvar previousScreen = env.get(\"PreviousScreen\");\nvar nextScreen = env.get(\"NextScreen\");\nvar pages = global.get(\"Pages\");\n\nglobal.set(\"CurrentScreen\", currentScreen);\nglobal.set(\"PreviousScreen\", previousScreen);\nglobal.set(\"NextScreen\", nextScreen);\n//global.set(\"ScreenSaver\", \"ScreenSaver\");\nmsg.pageName = pages[currentScreen];\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "0a99b0efd97aab1e"
+            ]
+        ]
+    },
+    {
+        "id": "1498d58ae0296b5f",
+        "type": "change",
+        "z": "adee135b63693741",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "complete",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 180,
+        "wires": [
+            [
+                "3b3eefedda263695"
+            ]
+        ]
+    },
+    {
+        "id": "3b3eefedda263695",
+        "type": "switch",
+        "z": "adee135b63693741",
+        "name": "Screens",
+        "property": "payload[2]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "openhab",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "subpage",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 540,
+        "y": 380,
+        "wires": [
+            [
+                "c68b7eb00af74dbf"
+            ],
+            [
+                "874f39604c49ba2a"
+            ]
+        ]
+    },
+    {
+        "id": "ed8571b59fd1d09b",
+        "type": "delay",
+        "z": "adee135b63693741",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "25",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 180,
+        "wires": [
+            [
+                "1498d58ae0296b5f"
+            ]
+        ]
+    },
+    {
+        "id": "f5e92fd125629629",
+        "type": "switch",
+        "z": "adee135b63693741",
+        "name": "Screens",
+        "property": "itemUpdated",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "7532f192595f75be",
+                "87d000d40b9efada"
+            ],
+            [
+                "87d000d40b9efada"
+            ]
+        ]
+    },
+    {
+        "id": "a70d1679a2e76320",
+        "type": "switch",
+        "z": "adee135b63693741",
+        "name": "Screens",
+        "property": "Type",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "cardThermo",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "screensaver",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1100,
+        "y": 480,
+        "wires": [
+            [
+                "aa60598f10864eb0"
+            ],
+            [
+                "09021b95c5775768",
+                "8ab215e79539b714"
+            ],
+            [
+                "cf1c0aedcee6e772"
+            ]
+        ]
+    },
+    {
+        "id": "aa60598f10864eb0",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "Page cardThermo",
+        "func": "var data = msg.payload;\nvar currentScreen = env.get(\"CurrentScreen\");\nvar cmnd_list = [\"entityUpd\"]\nvar counter = 1\ncmnd_list[counter++] = env.get(\"CurrentPageName\");\ncmnd_list[counter++] = env.get(\"Navigation\")       // Navigation\n\n//var itemsNames = global.get(global.get(\"CurrentPage\"));\n\n// entityUpd~* heading * ~* navigation * ~* internalNameEntiy * ~* currentTemp \n//* ~* destTemp * ~* status * ~* minTemp * ~* maxTemp * ~* stepTemp * \n\n//[[~* iconId *~* activeColor * ~* state * ~* hvac_action *]]\n//~tCurTempLbl~tStateLbl~tALbl~iconTemperature~dstTempTwoTempMode\n\n// [[]] are not part of the command~this part repeats 8 times for the buttons\n\nvar itemsNames = global.get(\"Pages\")[currentScreen];\n\n\n//for (let index = 0; index < itemsNames.length; index++) {\n    // @ts-ignore global.get(\"icons\").get(itemsNames[0][1]); // Icon\n    const currentTemp = data[itemsNames[0][0]];\n    const power = data[itemsNames[1][0]];\n    const targetTemp = data[itemsNames[2][0]];\n        const operation = data[itemsNames[3][0]];\nconst fan = data[itemsNames[4][0]];\n    \n\ncmnd_list[counter++] = \"AC\";// itemsNames[0][3]; //internalNameEntiy\ncmnd_list[counter++] = currentTemp.payload; //currentTemp\ncmnd_list[counter++] =\n parseInt(targetTemp.payload)*10// destTemp\ncmnd_list[counter++] = power.payload; //status\ncmnd_list[counter++] = 190; // minTemp\ncmnd_list[counter++] = 300; // maxTemp\ncmnd_list[counter++] = 10; // stepTemp\n\n//One //[[~* iconId *~* activeColor * ~* state * ~* hvac_action *]]\ncmnd_list[counter++] = global.get(\"icons\").get(itemsNames[1][1]); // iconId\ncmnd_list[counter++] =  64811 //activeColor\ncmnd_list[counter++] = power.payload==\"ON\"?1:0 // state\ncmnd_list[counter++] = \"onoff\"; // hvac_action\n//Two\ncmnd_list[counter++] = global.get(\"icons\").get(\"snowflake\"); // iconId\ncmnd_list[counter++] = 64811;\ncmnd_list[counter++] = operation.payload == 0 ?1:0; // state\ncmnd_list[counter++] = \"cooling\"; // hvac_action\n//Three\nvar iconFan = fan.payload > 3 ? \"fan\" : itemsNames[4][1] + \"-\" + fan.payload;\ncmnd_list[counter++] = global.get(\"icons\").get(iconFan);// iconId\ncmnd_list[counter++] = 64811 //Color\ncmnd_list[counter++] = operation.payload; // state\ncmnd_list[counter++] = \"drying\"; // hvac_action\n//Four\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"fan\"\n//Five\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"Auto\"\n//Six\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\n//Seven\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\n// //Eight\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\ncmnd_list[counter++] = \"\"\n\n// End~tCurTempLbl~tStateLbl~tALbl~iconTemperature~dstTempTwoTempMode\ncmnd_list[counter++] = \"Currently\"\ncmnd_list[counter++] = \"State\"\ncmnd_list[counter++] = \"TEST\"\ncmnd_list[counter++] = global.get(\"icons\").get(\"temperature-celsius\");\ncmnd_list[counter++] = \"\";\ncmnd_list[counter++] = 1\n\nmsg.payload = cmnd_list.join(\"~\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8ab215e79539b714",
+        "type": "debug",
+        "z": "adee135b63693741",
+        "name": "THERMO",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "09021b95c5775768",
+        "type": "function",
+        "z": "adee135b63693741",
+        "name": "ScreenSaver",
+        "func": "var data = msg.payload;\nvar currentScreen = env.get(\"CurrentScreen\");\nvar cmnd_list = [\"weatherUpdate\"]\nvar counter = 1\nvar itemsNames = global.get(\"Pages\")[currentScreen];\n\nfor (let index = 0; index < itemsNames.length; index++) {\n    // @ts-ignore\n    const element = data[itemsNames[index][0]];\n\n        \n\n        if (itemsNames[index][3] == \"icon\"){\n            var icon = global.get(\"OpenWeatherIcons\").get(element.payload);\n            cmnd_list[counter++]  = global.get(\"icons\").get(icon.trim());\n        } else if (itemsNames[index][3] == \"switch\"){\n            cmnd_list[counter++] = global.get(\"icons\").get(\"lightbulb-on\");\n            cmnd_list[counter++] = element.payload== \"ON\" ? 64811 : 17299;\n        } else if (itemsNames[index][3] ==\"text\"){\n            cmnd_list[counter++] = element.payload; //Type\n        } else if (itemsNames[index][3] == \"label\"){\n            cmnd_list[counter++] = itemsNames[index][0]; //Type\n        }else if (itemsNames[index][3] == \"empty\") {\n                cmnd_list[counter++] = \"\"; //Type\n        }else{\n            cmnd_list[counter++]=\"\"\n        }\n}\n\nmsg.payload = cmnd_list.join(\"~\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c5c80ee88da1d9a",
+        "type": "tab",
+        "label": "NS Panel",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1135ba852d6100af",
+        "type": "mqtt in",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "topic": "tele/nspanel_7BF20C/RESULT",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "66babad5ab385186",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "159a06ce63d2d3cb"
+            ]
+        ]
+    },
+    {
+        "id": "95c7586d7d7d3d05",
+        "type": "mqtt out",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "topic": "cmnd/nspanel_7BF20C/CustomSend",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "66babad5ab385186",
+        "x": 1490,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d123148788cee92a",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Living Room",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "LivingRoom",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Living Room",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "ScreenSaver",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages",
+                "type": "str"
+            }
+        ],
+        "x": 890,
+        "y": 400,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "15742537ae3e96c6",
+        "type": "debug",
+        "z": "7c5c80ee88da1d9a",
+        "name": "SubFlow Test",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "533799427b60dd25",
+        "type": "function",
+        "z": "7c5c80ee88da1d9a",
+        "name": "LoveLace Icons",
+        "func": "var data = msg.payload.split(\"\\n\");\n\n\nvar map = new Map();\n\nfor (let index = 0; index < data.length; index++) {\n    var element = data[index].split(\"=\");\n    \n    map.set(element[0], element[1]);\n}\n\n\nglobal.set(\"icons\", map);\n\nmsg.payload = map;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 40,
+        "wires": [
+            [
+                "15742537ae3e96c6"
+            ]
+        ]
+    },
+    {
+        "id": "079188442a120cfd",
+        "type": "file in",
+        "z": "7c5c80ee88da1d9a",
+        "name": "LovelaceIcons.map",
+        "filename": "/etc/openhab/transform/LovelaceIcons.map",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "533799427b60dd25"
+            ]
+        ]
+    },
+    {
+        "id": "e35d1f663927c606",
+        "type": "inject",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "079188442a120cfd",
+                "adde34bc55fcfd7d",
+                "777b7cb623e61c29"
+            ]
+        ]
+    },
+    {
+        "id": "33519c0af53bd36f",
+        "type": "debug",
+        "z": "7c5c80ee88da1d9a",
+        "name": "SubFlow Test",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5d510f8e712c839c",
+        "type": "function",
+        "z": "7c5c80ee88da1d9a",
+        "name": "OpenWeatherIcons.map",
+        "func": "var data = msg.payload.split(\"\\n\");\n\n\nvar map = new Map();\n\nfor (let index = 0; index < data.length; index++) {\n    var element = data[index].split(\"=\");\n    \n    map.set(element[0], element[1]);\n}\n\n\nglobal.set(\"OpenWeatherIcons\", map);\n\nmsg.payload = map;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 100,
+        "wires": [
+            [
+                "33519c0af53bd36f"
+            ]
+        ]
+    },
+    {
+        "id": "adde34bc55fcfd7d",
+        "type": "file in",
+        "z": "7c5c80ee88da1d9a",
+        "name": "OpenWeatherIcons.map",
+        "filename": "/etc/openhab/transform/OpenWeatherIcons.map",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "5d510f8e712c839c"
+            ]
+        ]
+    },
+    {
+        "id": "8fa02ca937ecae4d",
+        "type": "subflow:5f528f74f282670a",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Media",
+        "env": [
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "ScreenSaver",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            }
+        ],
+        "x": 910,
+        "y": 740,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "777b7cb623e61c29",
+        "type": "function",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Page Data",
+        "func": "\nvar pages = {\n\n\"Study\": [\n                [\"StudyRoom_StudyRoomFan\", \"lightbulb\", \"openhab\", \"switch\"],\n                [\"StudyRoom_StudyRoomLight\", \"ceiling-fan\", \"openhab\", \"fan\"]\n        ],  \n\"Master Bedroom\": [\n                [\"StudyRoom_StudyRoomFan\", \"lightbulb\", \"openhab\", \"switch\"],\n                [\"StudyRoom_StudyRoomLight\", \"ceiling-fan\", \"openhab\", \"fan\"],\n        [\"AC.navigate\", \"air-conditioner\", \"subpage\", \"navigate\"]\n        ], \n\n\"AC\": [\n        [\"AC_Temperature\", \"switch\", \"openhab\", \"switch\"],\n        [\"AC_Power\", \"power\", \"openhab\", \"switch\"],\n        [\"AC_TargetTemperature\", \"switch\", \"openhab\", \"switch\"],\n        [\"AC_OperationMode\", \"sun-snowflake\", \"openhab\", \"switch\"],\n        [\"AC_FanSpeed\", \"fan-speed\", \"openhab\", \"input_sel\"]\n        \n        \n                \n        ], \n\n    \"LivingRoom\" : [\n        [\"StudyRoom_StudyRoomFan\", \"lightbulb\", \"openhab\", \"switch\"],\n        [\"LivingRoomLight_LivingRoomFan\", \"ceiling-fan\", \"openhab\", \"fan\"],\n\n        [\"DinningRoomFan_DinningFan\", \"ceiling-fan\", \"openhab\", \"fan\"],\n        [\"TV_Power\", \"remote-tv\", \"openhab\", \"light\"],\n       \n\n        [\"Master Bedroom.navigate\", \"bed-king\", \"subpage\", \"cardThermo_navigate\"]\n\n\n        ],\n    \"Home\": [\n            [\"Kitchen.navigate\", \"food\", \"subpage\", \"navigate\"],\n            [\"Bedroom.navigate\", \"bed\", \"subpage\", \"navigate\"],\n            [\"Robot.navigate\", \"robot-vacuum\", \"subpage\", \"navigate\"],\n            [\"Study.navigate\", \"library\", \"subpage\", \"navigate\"],\n            [\"Corridor.navigate\", \"door\", \"subpage\", \"navigate\"],\n            [\"Status.navigate\", \"state-machine\", \"subpage\", \"navigate\"]],\n            \n    \"Corridor\": [\n            [\"CorridorLight_CorridorLightColor\", \"lightbulb\", \"openhab\", \"light\"]\n\n            ],\n    \"Media\": [\n            [\"TV_ProgramTitle\", \"string\", \"Title\"],\n            [\"TV_Power\", \"television\", \"Power\"],\n            [\"TV_Volume\", \"volume-source\", \"Volume\"],\n            [\"Pioneer_Power\", \"video\", \"AVPower\"],\n            [\"Pioneer_Display\", \"string\", \"AVTitle\"]\n            ],\n    \"Robot\": [[\"Sunny_State\", \"state-machine\", \"openhab\", \"text\"],\n            [\"Sunny_Command\", \"vacuum\", \"openhab\", \"input_sel\", [\"clean\", \"pause\", \"resume\", \"stop\", \"charge\"]],\n                [\"Sunny_BatteryLevel\", \"battery\", \"openhab\", \"text\"]\n         \n\n            ],\n        \"Kitchen\" :[\n                [\"KitchenFilter_KitchenFilter\", \"water\", \"openhab\", \"switch\"],\n        ],\n\"ScreenSaver\": \n                [\n                [\"WeatherandForecast_Current_Icon\",\"lightbulb\", \"openhab\", \"icon\"],\n                [\"WeatherandForecast_OutdoorTemperature\", \"lightbulb\", \"openhab\", \"text\"],\n\n                [\"3Hr\", \"lightbulb\", \"subpage\", \"label\"],\n               \n                [\"WeatherandForecast_Icon\", \"lightbulb\", \"openhab\", \"icon\"],\n                [\"WeatherandForecast_ForecastedTemperature\", \"lightbulb\", \"openhab\", \"text\"],\n               \n                \n                [\"6Hr\", \"lightbulb\", \"subpage\", \"label\"],\n                [\"WeatherandForecast6_Icon\", \"lightbulb\", \"openhab\", \"icon\"],\n                [\"WeatherandForecast_ForecastedTemperature6\", \"lightbulb\", \"openhab\", \"text\"],\n               \n                [\"9Hr\", \"lightbulb\", \"subpage\", \"label\"],\n                [\"WeatherandForecast9_Icon\", \"lightbulb\", \"openhab\", \"icon\"],\n                [\"WeatherandForecast_ForecastedTemperature9\", \"lightbulb\", \"openhab\", \"text\"],\n\n                [\"12Hr\", \"lightbulb\", \"subpage\", \"label\"],\n                [\"WeatherandForecast12_Icon\", \"lightbulb\", \"openhab\", \"icon\"],\n                \n                [\"WeatherandForecast_ForecastedTemperature12\", \"lightbulb\", \"openhab\", \"text\"],\n\n                [\"empty1\", \"lightbulb\", \"subpage\", \"empty\"],\n                [\"empty2\", \"lightbulb\", \"subpage\", \"empty\"],\n\n                [\"NSPanel_NSPanelSwitch1\", \"lightbulb\", \"openhab\", \"switch\"],\n                [\"NSPanel_NSPanelSwitch2\", \"lightbulb\", \"openhab\", \"switch\"],\n                \n                [\"empty3\", \"lightbulb\", \"subpage\", \"empty\"],\n                [\"empty4\", \"lightbulb\", \"subpage\", \"empty\"],\n                ]\n\n       \n\n\n}\n\nglobal.set(\"Pages\", pages);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d69d42f331fbf52",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Home",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "LivingRoom",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "Corridor",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 870,
+        "y": 460,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "66bad8711765194f",
+        "type": "switch",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Screens",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ScreenSaver",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "LivingRoom",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Home",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Kitchen",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Corridor",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Media",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Bedroom",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Study",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Master Bedroom",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Robot",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Notification",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "AC",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 13,
+        "x": 600,
+        "y": 680,
+        "wires": [
+            [
+                "09bdbe04e68b9204"
+            ],
+            [
+                "d123148788cee92a"
+            ],
+            [
+                "3d69d42f331fbf52"
+            ],
+            [
+                "d7ca7b84b3342fed"
+            ],
+            [
+                "8e5851a6d8111e01"
+            ],
+            [
+                "8fa02ca937ecae4d"
+            ],
+            [],
+            [
+                "9da0d9c34959beb2"
+            ],
+            [
+                "4825b02d0285f31e"
+            ],
+            [
+                "cbddf921ac5a8d43"
+            ],
+            [],
+            [
+                "8b8cdc27d1a42873"
+            ],
+            [
+                "018bb86c946acc19"
+            ]
+        ]
+    },
+    {
+        "id": "cbddf921ac5a8d43",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Robot",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Robot",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Cleaning",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            },
+            {
+                "name": "Type",
+                "value": "cardEntities",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 910,
+        "y": 940,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "159a06ce63d2d3cb",
+        "type": "function",
+        "z": "7c5c80ee88da1d9a",
+        "name": "RoomFinder",
+        "func": "var topic = msg.payload.CustomRecv;\n\n\n\nvar currentScreen = global.get(\"CurrentScreen\");\nvar nextScreen = global.get(\"NextScreen\");\nvar previousScreen = global.get(\"PreviousScreen\");\nvar swipeRight = global.get(\"SwipeRight\");\nvar swipeLeft = global.get(\"SwipeLeft\");\nvar screenSaver = currentScreen;// global.get(\"ScreenSaver\");\nvar eventObject = topic.split(\",\");\nvar popup =\"\";\n//event,buttonPress2,screensaver,bExit,1\n//event,sleepReached,cardGrid\n//event,pageOpenDetail,popupInSel,Robot-Cleaner\n//event,buttonPress2,popupLight,bExit\"\n\n//event,pageOpenDetail,popupInSel,Sunny_Command\n\nvar event = eventObject[0]; //Event  0\nvar eventName = eventObject[1]; // event Name 1 \nvar screenName = \"\"; // Screen Name 2\nvar eventType = \"\"\nvar sleepEvent = \"\"\nif(eventObject.length==3){\n    eventType = eventName\n    screenName = eventObject[2];\n    \n} else if (eventObject.length>3){\n    screenName = eventObject[2];\n    eventType = eventObject[3];\n \n}\n\n\n\nif (eventName == \"startup\"){\n    eventType = \"ScreenSaver\";\n}\n\nif (eventName == \"sleepReached\"){\n    eventType = \"ScreenSaver\";\n}\n\nswitch (eventType){\n    case \"ScreenSaver\":\n        msg.payload =\"ScreenSaver\";\n        break;\n    case \"bExit\" :\n        switch (screenName){\n            case \"popupInSel\":\n            case \"popupLight\":\n                \n                eventType = eventObject[2]\n                msg.payload = currentScreen;\n                break;\n            case \"screensaver\":\n                msg.payload = nextScreen;\n                break;\n           \n        \n        }\n        break\n    case \"bNext\":\n        msg.payload = nextScreen\n        break;\n    case \"bPrev\":\n        msg.payload = previousScreen\n        break\n    \n    case \"swipeRight\":\n        msg.payload = swipeRight;\n        msg.CustomRecv = topic;\n        break;\n    case \"swipeLeft\":\n        msg.payload = swipeLeft;\n        msg.CustomRecv = topic;\n        break;\n    case \"sleepReached\":\n        msg.payload = screenSaver;\n        msg.payload.CustomRecv = topic;\n        break;\n    case \"button\":\n        var subpage = topic.split(\",\")[2]\n        if (topic.includes(\"navigate\")){\n            msg.payload = subpage.split(\".\")[0];\n            msg.CustomRecv = topic;\n            msg.buttonEvent = topic\n        }else{\n            msg.payload = currentScreen;\n            msg.buttonEvent = \"Button\"\n            msg.CustomRecv = topic;\n        }\n        break;\n\n\n    default:\n        msg.payload = topic;\n        msg.CustomRecv = topic;\n    }\n\nmsg.itemUpdated = false;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 400,
+        "wires": [
+            [
+                "66bad8711765194f",
+                "6923718609e34faf"
+            ]
+        ]
+    },
+    {
+        "id": "018bb86c946acc19",
+        "type": "subflow:d6fb0a0c25bb9a27",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "x": 910,
+        "y": 1120,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ],
+        "icon": "font-awesome/fa-arrow-right"
+    },
+    {
+        "id": "8e5851a6d8111e01",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Corridor",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Corridor",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Corridor",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "LivingRoom",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 920,
+        "y": 680,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "6923718609e34faf",
+        "type": "debug",
+        "z": "7c5c80ee88da1d9a",
+        "name": "OpenHAB",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d7ca7b84b3342fed",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Kitchen",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Kitchen",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Kitchen",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 880,
+        "y": 540,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "9da0d9c34959beb2",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Study Room",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Study",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Study Room",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            },
+            {
+                "name": "Type",
+                "value": "cardEntities",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 930,
+        "y": 780,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "4825b02d0285f31e",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "Master Bedroom",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "Master Bedroom",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "Master Bedroom",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Home",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 950,
+        "y": 820,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "8b8cdc27d1a42873",
+        "type": "subflow:adee135b63693741",
+        "z": "7c5c80ee88da1d9a",
+        "name": "AC",
+        "env": [
+            {
+                "name": "CurrentScreen",
+                "value": "AC",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPageName",
+                "value": "AC",
+                "type": "str"
+            },
+            {
+                "name": "Navigation",
+                "value": "1|0",
+                "type": "str"
+            },
+            {
+                "name": "PreviousScreen",
+                "value": "Master Bedroom",
+                "type": "str"
+            },
+            {
+                "name": "NextScreen",
+                "value": "NA",
+                "type": "str"
+            },
+            {
+                "name": "Type",
+                "value": "cardThermo",
+                "type": "str"
+            },
+            {
+                "name": "CurrentPage",
+                "value": "gridpages2",
+                "type": "str"
+            }
+        ],
+        "x": 910,
+        "y": 1020,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "e2e102deacfb90d2",
+        "type": "inject",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "props": [],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a5d9af0ee70781cc",
+        "type": "subflow:e6ada0ea31293a9f",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "66bad8711765194f"
+            ]
+        ]
+    },
+    {
+        "id": "09bdbe04e68b9204",
+        "type": "subflow:fd2292f88d998b09",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "env": [
+            {
+                "name": "NextScreen",
+                "value": "LivingRoom",
+                "type": "str"
+            },
+            {
+                "name": "SwipeRight",
+                "value": "Media",
+                "type": "str"
+            },
+            {
+                "name": "SwipeLeft",
+                "value": "Kitchen",
+                "type": "str"
+            }
+        ],
+        "x": 930,
+        "y": 220,
+        "wires": [
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ],
+            [
+                "95c7586d7d7d3d05"
+            ]
+        ]
+    },
+    {
+        "id": "0e883adf00ab7557",
+        "type": "catch",
+        "z": "7c5c80ee88da1d9a",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 380,
+        "y": 1280,
+        "wires": [
+            [
+                "d0a35b77181f9c23",
+                "9f02c1c35fafba3e"
+            ]
+        ]
+    },
+    {
+        "id": "9f02c1c35fafba3e",
+        "type": "function",
+        "z": "7c5c80ee88da1d9a",
+        "name": "ScreenSaver",
+        "func": "var data = msg.payload;\n// var currentScreen = env.get(\"CurrentScreen\");\n// var cmnd_list = [\"weatherUpdate\"]\n// var counter = 1\n// var itemsNames = global.get(\"Pages\")[currentScreen];\n\n// for (let index = 0; index < itemsNames.length; index++) {\n//     // @ts-ignore\n//     const element = data[itemsNames[index][0]];\n\n        \n\n//         if (itemsNames[index][3] == \"icon\"){\n//             var icon = global.get(\"OpenWeatherIcons\").get(element.payload);\n//             cmnd_list[counter++]  = global.get(\"icons\").get(icon.trim());\n//         } else if (itemsNames[index][3] == \"switch\"){\n//             cmnd_list[counter++] = global.get(\"icons\").get(\"lightbulb-on\");\n//             cmnd_list[counter++] = element.payload== \"ON\" ? 64811 : 17299;\n//         } else if (itemsNames[index][3] ==\"text\"){\n//             cmnd_list[counter++] = element.payload; //Type\n//         } else if (itemsNames[index][3] == \"label\"){\n//             cmnd_list[counter++] = itemsNames[index][0]; //Type\n//         }else if (itemsNames[index][3] == \"empty\") {\n//                 cmnd_list[counter++] = \"\"; //Type\n//         }else{\n//             cmnd_list[counter++]=\"\"\n//         }\n// }\n\n// msg.payload = cmnd_list.join(\"~\");\n\nmsg.payload =\"pageType~popupNotify\"\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0a35b77181f9c23",
+        "type": "debug",
+        "z": "7c5c80ee88da1d9a",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "66babad5ab385186",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.1.10",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
