@@ -1,6 +1,6 @@
 # o2n2l
 
-Simple Node-red integration to connect to lovelace UI. 
+Simple Node-red integration to connect to lovelace UI to openhab
 
 <img width="1065" alt="image" src="https://user-images.githubusercontent.com/32016319/202849663-e4a097f6-7472-45f0-a354-e040196fc5d5.png">
 
