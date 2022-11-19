@@ -8,8 +8,7 @@ Above nodes are to setup following things:
 1. Path to LovelaceIcons.map
 2. Path to OpenWeatherIcons.map
 3. Page Setup up, It is a JSON with Ararry of Arrays.
-
-`
+```
 var pages = {
     "LivingRoom" : [
         ["StudyRoom_StudyRoomFan", "lightbulb", "openhab", "switch"],
@@ -18,7 +17,6 @@ var pages = {
         ["TV_Power", "remote-tv", "openhab", "light"],
         ["Master Bedroom.navigate", "bed-king", "subpage", "cardThermo_navigate"]
         ],
-  
 "ScreenSaver": 
                 [
                 ["WeatherandForecast_Current_Icon","lightbulb", "openhab", "icon"],
@@ -54,6 +52,7 @@ var pages = {
                 ]
 
 }
-`
+
+```
 
 TBC
