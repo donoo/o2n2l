@@ -9,6 +9,7 @@ Above nodes are to setup following things:
 2. Path to OpenWeatherIcons.map
 3. Page Setup up, It is a JSON with Ararry of Arrays.
 
+`
 var pages = {
     "LivingRoom" : [
         ["StudyRoom_StudyRoomFan", "lightbulb", "openhab", "switch"],
@@ -53,4 +54,6 @@ var pages = {
                 ]
 
 }
+`
 
+TBC
